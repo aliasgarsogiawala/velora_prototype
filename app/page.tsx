@@ -1,65 +1,20 @@
-import Image from "next/image";
+import Link from "next/link";
+import { journeys } from "./journey-data";
+
+const Arrow = () => <span className="arrow" aria-hidden="true">↗</span>;
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  return <main>
+    <section className="hero" id="top">
+      <nav className="nav wrap"><Link className="brand" href="/">VELORA<span>°</span></Link><div className="nav-links"><Link href="/journeys">Journeys</Link><Link href="/about">About us</Link><a href="#philosophy">Our way</a></div><a className="nav-cta" href="#plan">Begin a journey <Arrow /></a></nav>
+      <div className="hero-content wrap"><p className="eyebrow fade-up">Private journeys · Unhurried wonders</p><h1 className="hero-title"><span className="fade-up d1">Find the place</span><em className="fade-up d2">beyond the map.</em></h1><div className="hero-bottom fade-up d3"><p>For those who collect feelings,<br />not just destinations.</p><Link className="circle-link" href="/journeys">Explore<br />journeys <Arrow /></Link></div></div>
+      <div className="hero-meta"><span>Designed around emotions</span><span>Scroll to wander <i /></span></div>
+    </section>
+    <section className="intro wrap" id="philosophy"><p className="eyebrow">The Velora difference</p><div className="intro-grid"><h2>Not a holiday.<br /><em>A change of pace.</em></h2><div className="intro-copy"><p>We design journeys with room for serendipity. A private supper under a desert sky. The road that takes longer, because it is better.</p><a className="text-link" href="#plan">Our point of view <Arrow /></a></div></div></section>
+    <section className="specializations"><div className="wrap"><p className="eyebrow">What we do best</p><div className="specialization-head"><h2>Every journey,<br /><em>exactly your way.</em></h2><p>We create sophisticated travel experiences with the access, care and imagination to make each detail feel personal.</p></div><div className="specialization-grid"><article><span>01</span><h3>International<br />journeys</h3><p>Europe, Nordics, Japan, Australia & New Zealand, the Middle East, Southeast and Central Asia.</p></article><article><span>02</span><h3>Luxury<br />escapes</h3><p>Private villas, distinctive resorts, luxury rail, exceptional stays and exclusive cruises.</p></article><article><span>03</span><h3>Signature<br />honeymoons</h3><p>Privacy, romance and meaningful moments, designed around the two of you.</p></article><article><span>04</span><h3>Curated India<br />& incentives</h3><p>Handcrafted India journeys plus premium business travel, leadership retreats and incentives.</p></article></div></div></section>
+    <section className="journeys" id="journeys"><div className="wrap section-head"><div><p className="eyebrow">Selected journeys</p><h2>Go where<br /><em>the story is.</em></h2></div><p className="section-note">A complete collection of considered routes,<br />rare access, and brilliant local company.</p></div><div className="journey-grid journey-grid-four wrap">{journeys.map((item) => <Link href={`/journeys/${item.slug}`} className="journey-card" key={item.number} style={{ backgroundImage: `linear-gradient(180deg, rgba(29,45,68,.04) 30%, rgba(29,45,68,.84) 100%), url(${item.image})` }}><div className="card-top"><span>{item.number}</span><span>{item.duration}</span></div><div className="card-bottom"><h3>{item.title}</h3><Arrow /></div></Link>)}</div><div className="wrap all-journeys"><Link className="text-link" href="/journeys">View all journeys <Arrow /></Link></div></section>
+    <section className="manifesto"><div className="manifesto-image" /><div className="manifesto-panel"><p className="eyebrow">An invitation</p><h2>The world still has<br /><em>its secrets.</em></h2><p>We know where to listen for them. Every Velora journey is shaped around the way you want to feel when you return home.</p><a href="#plan" className="pill">Meet your travel designer <Arrow /></a></div></section>
+    <section className="clientele wrap"><p className="eyebrow">Our clientele</p><div className="clientele-layout"><h2>For travellers who<br /><em>expect more.</em></h2><div className="client-tags"><span>Affluent families</span><span>Honeymoon couples</span><span>Entrepreneurs</span><span>Corporate leaders</span><span>Luxury experience seekers</span><span>Multi-generational travellers</span><span>Special interest travellers</span></div></div></section>
+    <footer id="plan"><div className="wrap footer-top"><p className="eyebrow">Your story begins here</p><h2>Let&apos;s go<br /><em>somewhere.</em></h2><a className="footer-button" href="mailto:hello@velora.travel">Plan a private journey <Arrow /></a></div><div className="wrap footer-bottom"><Link className="brand" href="/">VELORA<span>°</span></Link><p>© 2026 Velora Travel Collective</p><div><a href="#top">Instagram</a><a href="#top">Contact</a></div></div></footer>
+  </main>;
 }

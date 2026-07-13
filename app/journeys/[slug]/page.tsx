@@ -1,0 +1,21 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { journeyBySlug, journeys } from "../../journey-data";
+
+export function generateStaticParams() { return journeys.map(({ slug }) => ({ slug })); }
+
+export default async function JourneyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const journey = journeyBySlug(slug);
+  if (!journey) notFound();
+  return <main className="itinerary-page">
+    <section className="itinerary-hero" style={{ backgroundImage: `linear-gradient(90deg, rgba(29,45,68,.8), rgba(29,45,68,.18)), url(${journey.image})` }}>
+      <nav className="nav wrap"><Link className="brand" href="/">VELORA<span>°</span></Link><Link href="/journeys" className="nav-cta">All journeys ←</Link></nav>
+      <div className="itinerary-hero-copy wrap"><p className="eyebrow">{journey.duration}</p><h1>{journey.title}</h1><p>{journey.eyebrow}</p></div>
+    </section>
+    <section className="itinerary-overview wrap"><div><p className="eyebrow">The route</p><h2>{journey.route}</h2></div><div><p>{journey.intro}</p><a href="#enquire" className="pill">Plan this journey ↗</a></div></section>
+    <section className="signature wrap"><p className="eyebrow">Velora signature experiences</p><div className="experience-list">{journey.experiences.map((experience, index) => <div key={experience}><span>0{index + 1}</span><p>{experience}</p></div>)}</div></section>
+    <section className="day-section"><div className="wrap"><p className="eyebrow">A slower itinerary</p><h2>Days designed<br /><em>to breathe.</em></h2><div className="day-list">{journey.itinerary.map((item) => <article key={item.day}><span>{item.day}</span><div><h3>{item.title}</h3><p>{item.copy}</p></div></article>)}</div></div></section>
+    <section className="itinerary-end wrap" id="enquire"><p className="eyebrow">Make it yours</p><h2>Let&apos;s shape the<br /><em>way you go.</em></h2><a href="mailto:hello@velora.travel" className="footer-button">Speak to a travel designer ↗</a></section>
+  </main>;
+}
