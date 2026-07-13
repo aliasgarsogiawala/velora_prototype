@@ -10,6 +10,7 @@ export default function SiteNav({ variant = "solid" }: { variant?: "hero" | "sol
         <Link href="/journeys">Journeys</Link>
         <Link href="/about">About us</Link>
         <Link href="/#philosophy">Our way</Link>
+        <Link href="/enquire">Contact</Link>
       </div>
       <Link className="nav-cta" href="/enquire">Begin a journey <span className="arrow" aria-hidden="true">↗</span></Link>
     </nav>
